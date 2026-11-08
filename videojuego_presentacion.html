@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNACH: En busca del título</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Variables y Configuración Base */
+        :root {
+            --bg-deep-blue: #050b14;
+            --bg-blue-accent: #0a192f;
+            --brand-gold: #CC9900;
+            --brand-gold-light: #FDE047;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-deep-blue);
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Utilidades de Diseño Premium */
+        .text-gradient-gold {
+            background: linear-gradient(135deg, var(--brand-gold-light) 0%, var(--brand-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(204, 153, 0, 0.3);
+        }
+
+        .tech-spec-number {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -0.05em;
+        }
+
+        .mock-screen {
+            background: linear-gradient(180deg, #0f203c 0%, #050b14 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(204, 153, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mock-screen::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
+            pointer-events: none;
+        }
+
+        /* Animaciones al hacer Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px) scale(0.98);
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+        .fade-in.in-view {
+            opacity: 1;
+        }
+
+        /* Botón estilo Apple */
+        .btn-premium {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            background-color: #f8fafc;
+            color: #050b14;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .btn-premium:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#CC9900] selection:text-white">
+
+    <!-- Navegación pegajosa (blur) -->
+    <nav class="fixed w-full top-0 z-50 transition-all duration-300 backdrop-blur-md bg-[#050b14]/70 border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <img src="Gemini_Generated_Image_7ve3357ve3357ve3-removebg-preview.png" alt="Logo UNACH" class="h-12 w-auto object-contain drop-shadow-[0_0_12px_rgba(204,153,0,0.5)] scale-150" onerror="this.src='https://placehold.co/40x40/CC9900/050b14?text=U'">
+                <span class="font-bold tracking-wider text-xs uppercase text-white/90 hidden sm:inline ml-3">En busca del título</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-white/60">
+                <a href="#proposito" class="hover:text-white transition-colors">Visión</a>
+                <a href="#mecanicas" class="hover:text-white transition-colors">Mecánicas</a>
+                <a href="#motor" class="hover:text-white transition-colors">Tecnología</a>
+            </div>
+            <a href="#lanzamiento" class="px-5 py-2 text-xs font-bold rounded-full bg-[#CC9900] text-black hover:bg-[#FDE047] transition-colors">Fase Beta</a>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <section class="relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-28 pb-12">
+        <div class="z-10 max-w-5xl mx-auto flex flex-col items-center">
+            
+            <!-- CONTENEDOR DEL LOGO Y EL CÍRCULO CON ZOOM -->
+            <div class="relative flex items-center justify-center w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] md:w-[420px] md:h-[420px] mb-8 reveal">
+                <!-- Círculo amarillo de luz -->
+                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#CC9900]/40 to-yellow-200/20 blur-2xl animate-pulse"></div>
+                <div class="absolute inset-8 rounded-full bg-[#CC9900]/20 blur-xl"></div>
+                <!-- Logo gigante (escala para eliminar visualmente el margen transparente) -->
+                <img src="Gemini_Generated_Image_7ve3357ve3357ve3-removebg-preview.png" alt="UNACH En busca del título" class="absolute z-10 w-full h-full object-contain scale-[2.2] md:scale-[2.8] drop-shadow-[0_15px_30px_rgba(0,0,0,0.9)] animate-[bounce_6s_ease-in-out_infinite]" onerror="this.src='gemini_generated_image_7ve3357ve3357ve3-removebg-preview.png'">
+            </div>
+
+            <h2 class="text-xs sm:text-sm md:text-base font-semibold tracking-[0.3em] uppercase text-[#CC9900] mb-4 reveal">Prototipo 8-Bits • Edición Especial</h2>
+            <h1 class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight mb-6 reveal delay-100">
+                <span class="text-gradient-gold">En busca del título.</span>
+            </h1>
+            <p class="text-lg sm:text-2xl md:text-3xl text-slate-400 font-light max-w-3xl mx-auto mb-10 reveal delay-200">
+                ¡Vive la experiencia universitaria en 8-bits! Explora, aprende y domina los desafíos académicos.
+            </p>
+        </div>
+    </section>
+
+    <!-- 2. Propósito (Nueva Sección) -->
+    <section id="proposito" class="py-20 bg-[#020617] border-y border-white/5 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 text-center reveal">
+            <h3 class="text-sm font-semibold tracking-widest text-slate-500 uppercase mb-8">El origen del proyecto</h3>
+            <div class="relative">
+                <span class="absolute -top-10 -left-6 text-6xl text-[#CC9900]/20 font-serif">"</span>
+                <p class="text-2xl md:text-4xl font-light text-white leading-relaxed z-10 relative">
+                    Diseñado para generar <span class="font-bold text-gradient-gold">confianza</span> en los estudiantes de nuevo ingreso y ayudarles a superar el <span class="font-semibold text-white">miedo psicológico-académico</span> de enfrentarse a una nueva etapa escolar.
+                </p>
+                <span class="absolute -bottom-10 -right-6 text-6xl text-[#CC9900]/20 font-serif">"</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Mecánicas del Juego (Expandida) -->
+    <section id="mecanicas" class="py-32 px-6 bg-[#0a192f] relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24 reveal">
+                <h2 class="text-5xl md:text-7xl font-bold tracking-tight mb-6">Jugabilidad Inmersiva.</h2>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">Cada elemento del campus está vivo. Aprender nunca había sido tan interactivo.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Exploración -->
+                <div class="glass-card p-10 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Exploración Interactiva</h3>
+                    <p class="text-slate-400 leading-relaxed">Recorre los pasillos y aulas de la UNACH. Descubre secretos, interactúa con el entorno y familiarízate con las instalaciones reales adaptadas al pixel-art.</p>
+                </div>
+
+                <!-- Misiones -->
+                <div class="glass-card p-10 reveal delay-100">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Sistema de Misiones</h3>
+                    <p class="text-slate-400 leading-relaxed">Cumple objetivos específicos que simulan la vida estudiantil. Desde entregar un proyecto a tiempo hasta encontrar el aula correcta en tu primer día de clases.</p>
+                </div>
+
+                <!-- Minijuegos -->
+                <div class="glass-card p-10 reveal delay-200">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Minijuegos Académicos</h3>
+                    <p class="text-slate-400 leading-relaxed">Enfréntate a exámenes y retos a través de mecánicas divertidas. Refuerza tus conocimientos de cálculo y programación mientras juegas.</p>
+                </div>
+
+                <!-- Boss Drops -->
+                <div class="glass-card p-10 reveal delay-300">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#CC9900] to-red-500 flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3">Jefes Finales y "Boss Drops"</h3>
+                    <p class="text-slate-400 leading-relaxed">Supera las evaluaciones finales (Bosses) para obtener increíbles recompensas y objetos únicos (Drops) que te ayudarán a avanzar en los semestres superiores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Motor Tecnológico -->
+    <section id="motor" class="py-32 px-6 relative overflow-hidden bg-[#050b14]">
+        <div class="absolute w-[800px] h-[800px] top-0 right-0 translate-x-1/4 -translate-y-1/4 rounded-full bg-radial-gradient from-[#CC9900]/20 to-transparent z-[-1] opacity-40 fade-in"></div>
+
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="reveal">
+                    <h2 class="text-5xl md:text-7xl font-bold tracking-tight mb-8">Potencia bajo el capó.</h2>
+                    <p class="text-xl text-slate-400 mb-8 leading-relaxed">Diseñado con un ecosistema de desarrollo de vanguardia, persistencia de datos SQLite y código en C#.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center border-b border-white/10 pb-6">
+                            <div class="text-[#CC9900] font-bold mr-6">01</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Mono.Data.Sqlite</h4>
+                                <p class="text-sm text-slate-400">Tus coordenadas y calificaciones guardadas en tiempo real.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center pb-6">
+                            <div class="text-[#CC9900] font-bold mr-6">02</div>
+                            <div>
+                                <h4 class="text-lg font-bold text-white">Unity 6 & C#</h4>
+                                <p class="text-sm text-slate-400">Rendimiento óptimo mediante Arquitectura Orientada a Objetos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6 reveal delay-200">
+                    <div class="glass-card p-8 flex flex-col justify-center items-center text-center col-span-2 aspect-[3/1] bg-gradient-to-br from-white/5 to-transparent">
+                        <span class="text-gradient-gold text-lg font-semibold tracking-widest uppercase mb-2">Motor Gráfico</span>
+                        <div class="tech-spec-number">Unity 6</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Lanzamiento y Aviso Final (Nueva Sección) -->
+    <section id="lanzamiento" class="py-24 px-6 relative flex justify-center items-center bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDUwYjE0Ij48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMxZTI5M2IiPjwvcmVjdD4KPC9zdmc+')]">
+        <div class="glass-card p-10 md:p-16 max-w-4xl w-full text-center border-[#CC9900]/30 shadow-[0_0_50px_rgba(204,153,0,0.15)] reveal">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Acceso Anticipado (Fase Beta)</h2>
+            
+            <div class="inline-block px-6 md:px-10 py-4 rounded-full bg-[#CC9900]/10 border border-[#CC9900]/40 text-[#FDE047] font-mono text-lg md:text-2xl tracking-widest font-bold mb-10 shadow-[inset_0_0_20px_rgba(204,153,0,0.2)]">
+                25 JULIO 2028 &nbsp;&mdash;&nbsp; 15 ENERO 2029
+            </div>
+            
+            <div class="bg-black/40 rounded-2xl p-6 border border-white/5 relative overflow-hidden text-left">
+                <div class="absolute top-0 left-0 w-1 h-full bg-[#CC9900]"></div>
+                <div class="flex items-start">
+                    <svg class="w-6 h-6 text-[#CC9900] mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                        <strong class="text-white">AVISO OFICIAL:</strong> El videojuego en su fase Beta de pre-lanzamiento será publicado y distribuido exclusivamente a través de esta misma página web. El enlace oficial se dará a conocer mediante campañas a través de todo el campus de la UNACH.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer class="border-t border-white/10 bg-[#020617] pt-16 pb-8 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-bold tracking-tight text-white mb-2">UNACH: En busca del título</h2>
+            <p class="text-sm text-slate-500 mb-12">Prototipo de Ingeniería en Desarrollo y Tecnologías de Software</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-12 text-sm text-slate-400 border-t border-white/5 pt-8">
+                <p>Desarrollador Principal: <span class="text-white font-medium">Leonardo Pérez López</span></p>
+                <p>Equipo: <span class="text-white font-medium text-[#CC9900]">SQLouders</span></p>
+            </div>
+            
+            <p class="text-xs text-slate-600 mt-12">
+                © 2026 UNACH SQLouders. Universidad Autónoma de Chiapas. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Script de Animaciones Interactivas -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -100px 0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                    }
+                });
+            }, observerOptions);
+
+            const animElements = document.querySelectorAll('.reveal, .fade-in');
+            animElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
